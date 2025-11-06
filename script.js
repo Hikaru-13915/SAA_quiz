@@ -21,7 +21,7 @@ const restartButton = document.getElementById('restart-button');
 fetch('./quiz_data.json')
   .then(response => response.json())
   .then(data => {
-    questions = data.questions.slice(0, 10); // 10問に限定
+    questions = data.questions.slice(0, 65); // 65問に限定
 
     // イベントリスナーの設定
     const submitButtonClickHandler = () => submitAnswer();

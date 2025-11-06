@@ -2,14 +2,18 @@
 
 本リポジトリは[AWS Certified Solutions Architect - Associate](https://aws.amazon.com/jp/certification/certified-solutions-architect-associate/)の対策のための模擬試験です。
 
+※ビルド後のサーバーはパブリックにオープンにしているため公開設定等はご自身でお願いします。
+
 ## 実施方法
 
-- Python環境がある方向け
+1. サーバー起動
 
 ```bash
 python3 -m http_server
 ```
 
-- Python環境がない方向け
+2. ブラウザから以下のサーバーにアクセスします。
 
-ローカルで[index.html](./index.html)を開いてください。
+http://{ご自身のIP address}:8000
+
+3. 問題を解くだけ
