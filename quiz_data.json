@@ -1,0 +1,1401 @@
+{
+  "questions": [
+    {
+      "question": "企業がリージョン全体の障害発生時、RTO 1時間、RPO 15分の要件を満たすEC2アプリケーションのDR戦略を設計しています。最もコスト効率の良い方法は？",
+      "options": [
+        "コールドスタンバイ戦略を採用し、別のリージョンにAMIを保存し、災害時にインスタンスを起動する。",
+        "ウォームスタンバイ戦略を採用し、別リージョンでEC2インスタンスを常時稼働させる。",
+        "パイロットライト戦略を採用し、別リージョンでデータベースのみ稼働させ、EC2は災害時に起動する。",
+        "マルチサイト戦略を採用し、2つのリージョンでトラフィックをアクティブ/アクティブで分散する。"
+      ],
+      "answer": 3,
+      "rationale": "RTO 1時間、RPO 15分は**パイロットライト戦略**でカバーできる現実的な時間であり、ウォームスタンバイよりもEC2のコストを節約できます。"
+    },
+    {
+      "question": "アクセス頻度が極めて低く、7年間保持が必要なログデータを保存します。取得に数時間かかっても問題ありません。最も低コストなS3ストレージクラスは？",
+      "options": [
+        "S3 Standard",
+        "S3 One Zone-IA",
+        "S3 Glacier Instant Retrieval",
+        "S3 Glacier Deep Archive"
+      ],
+      "answer": 4,
+      "rationale": "**S3 Glacier Deep Archive**は、年間で数回しかアクセスしないアーカイブ向けに設計された、最も低コストな長期保存ストレージクラスです。"
+    },
+    {
+      "question": "SQLインジェクションやXSS攻撃からWebアプリケーションを保護し、EC2に到達する前にトラフィックをブロックしたいです。適切なサービスは？",
+      "options": [
+        "セキュリティグループとネットワークACL",
+        "Amazon GuardDutyとAWS Shield Advanced",
+        "Amazon CloudFrontとAWS WAF",
+        "AWS IAMとAWS KMS"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon CloudFrontとAWS WAF**の組み合わせは、エッジでL7のWeb攻撃をフィルタリングし、EC2への負荷を軽減します。"
+    },
+    {
+      "question": "RDS for Auroraの読み取り負荷が高く、レイテンシを最小限に抑えたいです。最も効果的なソリューションは？",
+      "options": [
+        "Auroraのリードレプリカを追加し、Elastic Load Balancing (ELB) の背後に配置する。",
+        "Amazon ElastiCacheを導入し、頻繁にアクセスされるデータをキャッシュする。",
+        "データベースエンジンをAmazon DynamoDBに移行する。",
+        "RDS Proxyを使用して接続プーリングを有効にする。"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon ElastiCache**はインメモリキャッシングを提供し、アプリケーションのレイテンシを大幅に短縮し、RDSの負荷を軽減します。"
+    },
+    {
+      "question": "オンプレミスとAWS VPC間の専用の物理接続と高帯域幅を必要とします。インターネット経由ではないプライベート接続を実現するサービスは？",
+      "options": [
+        "AWS Site-to-Site VPN",
+        "AWS Direct Connect",
+        "AWS VPN CloudHub",
+        "VPC Peering"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Direct Connect**は、専用の物理回線を介した高帯域幅で安定したプライベート接続を提供します。"
+    },
+    {
+      "question": "トラフィックの変動に自動スケーリングし、アイドル時にコストが発生しない、ステートレスなバックエンドAPIを構築します。適切なサーバーレスな組み合わせは？",
+      "options": [
+        "Elastic Load Balancing (ELB) と Amazon EC2 Auto Scaling",
+        "Amazon API GatewayとAWS Lambda",
+        "AWS FargateとAmazon DynamoDB",
+        "AWS AppSyncとAmazon Aurora Serverless"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon API GatewayとAWS Lambda**の組み合わせは、サーバーレスAPIの標準であり、リクエストに応じてスケーリングし、アイドル時にコストがかかりません。"
+    },
+    {
+      "question": "ウェブサイトの静的アセットを世界中のユーザーに低レイテンシで配信したいです。最もコスト効率が高く、パフォーマンスの高いソリューションは？",
+      "options": [
+        "S3ウェブサイトホスティング機能を使用する。",
+        "EC2インスタンスの背後にあるEBSに保存し、ELBで負荷分散する。",
+        "ファイルをAmazon S3に保存し、Amazon CloudFrontディストリビューションのオリジンとしてS3を設定する。",
+        "AWS Global Acceleratorを使用してS3バケットへのアクセスを高速化する。"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon CloudFront** (CDN) を使用することで、世界中のエッジロケーションでコンテンツをキャッシュし、低レイテンシ配信とオリジン負荷軽減を両立できます。"
+    },
+    {
+      "question": "リアルタイムストリーミングデータソースから大量のデータを取り込み、分析のためにS3ベースのデータレイクにロードするソリューションは？",
+      "options": [
+        "Amazon SQSキューとEC2インスタンス",
+        "AWS Transfer Family",
+        "Amazon Kinesis Data Firehose",
+        "AWS DataSync"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Kinesis Data Firehose**は、ストリーミングデータを取り込み、S3などの宛先に自動的にロードするために設計されたマネージドサービスです。"
+    },
+    {
+      "question": "アプリケーションのAPIキーなどの機密データを安全に保存・管理し、自動でローテーションしたいです。最も適切なサービスは？",
+      "options": [
+        "AWS Key Management Service (KMS)",
+        "Amazon S3",
+        "AWS Secrets Manager",
+        "Amazon CloudWatch"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Secrets Manager**は、シークレットの安全な保存、ローテーション、アクセス制御のために設計された専用サービスです。"
+    },
+    {
+      "question": "毎月安定して予測可能な量のコンピューティングリソースを必要とする基幹業務ワークロードのTCOを最小限に抑える購入オプションは？",
+      "options": [
+        "スポットインスタンス（Spot Instances）",
+        "オンデマンドインスタンス（On-Demand Instances）",
+        "リザーブドインスタンス（RI）またはSavings Plans（SP）",
+        "キャパシティ予約（Capacity Reservations）"
+      ],
+      "answer": 3,
+      "rationale": "**リザーブドインスタンス（RI）またはSavings Plans（SP）**は、長期コミットメントと引き換えに大幅な割引を提供し、安定したワークロードのTCO削減に最適です。"
+    },
+    {
+      "question": "VPC内のプライベートサブネットにあるEC2インスタンスが、インターネットに接続せずにAWSのサービス（例: S3, DynamoDB）にアクセスできるようにしたいです。最も安全かつ推奨される方法は？",
+      "options": [
+        "NAT Gatewayを経由してアクセスする。",
+        "インターネットゲートウェイ (IGW) をアタッチする。",
+        "VPCエンドポイントを作成する。",
+        "EC2インスタンスにElastic IPアドレスを割り当てる。"
+      ],
+      "answer": 3,
+      "rationale": "**VPCエンドポイント**を使用することで、プライベートネットワーク経由でAWSサービスに安全にアクセスできます。"
+    },
+    {
+      "question": "ウェブサーバーの前にAuto Scalingグループと連携するロードバランサーを配置し、HTTPSトラフィックを処理したいです。証明書をロードバランサーにインストールし、EC2インスタンスへのトラフィックをHTTPでルーティングする設定のロードバランサーは？",
+      "options": [
+        "Classic Load Balancer (CLB)",
+        "Network Load Balancer (NLB)",
+        "Application Load Balancer (ALB)",
+        "Gateway Load Balancer (GWLB)"
+      ],
+      "answer": 3,
+      "rationale": "**Application Load Balancer (ALB)**はレイヤー7でSSLターミネーションを実行し、バックエンドへはHTTPでトラフィックを転送する機能を持っています。"
+    },
+    {
+      "question": "EC2インスタンスにアタッチされたEBSボリュームのI/Oパフォーマンスが不足しています。最も迅速にパフォーマンスを向上させる方法は？",
+      "options": [
+        "EBSボリュームタイプを `gp3` から `st1` に変更する。",
+        "EC2インスタンスタイプをより高性能なものに変更する。",
+        "EBSボリュームのサイズを大きくし、それに応じてプロビジョンドIOPSの値を増やす。",
+        "EBSボリュームのタイプを `gp3` から `io2` に変更する。"
+      ],
+      "answer": 4,
+      "rationale": "EBSボリュームのタイプを**io2（プロビジョンドIOPS SSD）**に変更し、必要なIOPS値を設定することが最も効果的かつ迅速にパフォーマンスを向上させる方法です。"
+    },
+    {
+      "question": "企業がVPC全体で特定のEC2インスタンスからのすべての送信トラフィックを検査するために、サードパーティのファイアウォールアプライアンスを使用したいです。どのサービスがこのトラフィックの強制ルーティングを可能にしますか？",
+      "options": [
+        "AWS WAF",
+        "VPC Peering",
+        "VPC Traffic Mirroring",
+        "AWS Transit Gateway"
+      ],
+      "answer": 4,
+      "rationale": "**AWS Transit Gateway**は、中央ハブとして機能し、トラフィックを検査用のアプライアンスVPCに強制的にルーティングする「インスペクションVPC」の設計に不可欠です。"
+    },
+    {
+      "question": "アプリケーションのすべてのデータは、保存時に暗号化する必要があります。この暗号化の管理と制御を、ユーザーが完全に掌握したいと考えています。適切なKMSのキータイプは？",
+      "options": [
+        "AWS所有のキー（AWS owned keys）",
+        "AWS管理のキー（AWS managed keys）",
+        "カスタマー管理のキー（Customer managed keys: CMK）",
+        "カスタマー提供のキー（Customer provided keys: CPK）"
+      ],
+      "answer": 3,
+      "rationale": "**カスタマー管理のキー（CMK）**は、キーポリシー、ローテーション、アクセス監査など、キーのライフサイクル全体を顧客が完全に制御できます。"
+    },
+    {
+      "question": "データベースをRDSからDynamoDBに移行する際、最も考慮すべき重要な設計上の違いは？",
+      "options": [
+        "スケーラビリティの制限",
+        "マルチAZ構成ができない点",
+        "リレーショナルスキーマと非リレーショナルスキーマの違い",
+        "クエリのレイテンシ"
+      ],
+      "answer": 3,
+      "rationale": "**リレーショナルスキーマと非リレーショナルスキーマの違い**、特にデータモデリングの根本的な違いを考慮する必要があります。"
+    },
+    {
+      "question": "AWSアカウント間のリソース共有を簡素化し、単一のVPCから複数のアカウントへのネットワーク接続を集中管理したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "VPC Peering",
+        "AWS Transit Gateway",
+        "VPC Endpoint",
+        "AWS PrivateLink"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Transit Gateway**は、多数のVPC接続をピアリングの網状接続を避け、ハブアンドスポーク型で一元管理できます。"
+    },
+    {
+      "question": "Amazon S3バケットへの意図しない書き込みや削除を防ぐために、セキュリティを強化したいです。最も適切なS3機能は？",
+      "options": [
+        "S3ライフサイクルポリシー",
+        "S3バージョン管理（Versioning）",
+        "S3オブジェクトロック（Object Lock）",
+        "S3クロスリージョンレプリケーション（CRR）"
+      ],
+      "answer": 3,
+      "rationale": "**S3オブジェクトロック**は、指定された期間オブジェクトを上書きまたは削除できないようにするWORM（Write Once Read Many）モデルを提供します。"
+    },
+    {
+      "question": "EC2インスタンスで実行されているアプリケーションに、S3へのアクセス権を付与したいです。最も安全かつ推奨される方法は？",
+      "options": [
+        "S3バケットポリシーでEC2インスタンスのパブリックIPアドレスを許可する。",
+        "EC2インスタンスにAWSアクセスキーとシークレットキーをハードコードする。",
+        "EC2インスタンスにIAMロールをアタッチし、S3へのアクセス許可を付与する。",
+        "インスタンスのユーザーデータにアクセスキーを記述する。"
+      ],
+      "answer": 3,
+      "rationale": "**IAMロール**を使用することで、認証情報をインスタンスに直接保存する必要がなく、一時的な認証情報が自動的に提供されるため、最も安全な方法です。"
+    },
+    {
+      "question": "アプリケーションのトラフィックが時間帯によって大きく変動します。予測できないトラフィックに対応し、常に最小限のコストで運用できるEC2の購入オプションは？",
+      "options": [
+        "リザーブドインスタンス（RI）",
+        "スポットインスタンス（Spot Instances）",
+        "オンデマンドインスタンス（On-Demand Instances）",
+        "Savings Plans（SP）"
+      ],
+      "answer": 3,
+      "rationale": "**オンデマンドインスタンス**は、必要なときにいつでも利用でき、コミットメントが不要なため、予測が難しい変動するワークロードに最も適しています。"
+    },
+    {
+      "question": "高頻度でアクセスされるWebサイトのセッションデータを保存し、レイテンシをミリ秒未満に抑えたいです。最も適切なデータベースサービスは？",
+      "options": [
+        "Amazon RDS (Multi-AZ)",
+        "Amazon ElastiCache (Redis)",
+        "Amazon DynamoDB Global Tables",
+        "Amazon Redshift"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon ElastiCache**（RedisやMemcached）はインメモリキャッシングを提供し、ミリ秒未満のレイテンシでセッションデータなどの高頻度アクセスデータを処理できます。"
+    },
+    {
+      "question": "EC2インスタンスにアタッチされているEBSボリュームのデータが、物理的に別の場所に自動的に複製されるようにしたいです。この要件を満たすのはどのEBSボリュームタイプですか？",
+      "options": [
+        "すべてのEBSボリュームタイプ",
+        "プロビジョンドIOPS SSD (io2)",
+        "汎用 SSD (gp3)",
+        "Throughput Optimized HDD (st1)"
+      ],
+      "answer": 1,
+      "rationale": "**すべてのEBSボリューム**は、そのアベイラビリティーゾーン内で自動的に複製され、単一コンポーネントの障害から保護されています。"
+    },
+    {
+      "question": "Webサーバーのバックエンドとして、リレーショナルデータベースを使用し、最大読み込みスケーラビリティと高速フェイルオーバーを求めています。最も適切なRDSのエンジンは？",
+      "options": [
+        "Amazon RDS for MySQL (リードレプリカ使用)",
+        "Amazon RDS for PostgreSQL (Multi-AZ)",
+        "Amazon Aurora",
+        "Amazon DynamoDB"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Aurora**は、最大15のリードレプリカと、一般的なRDSよりも高速な自動フェイルオーバー（通常30秒未満）を提供します。"
+    },
+    {
+      "question": "Webサイトのコンテンツを配信するためにCloudFrontを使用しており、ユーザーの地理的な場所に基づいて異なるコンテンツ（例: 言語別の画像）を提供したいです。どのCloudFront機能を使用すべきですか？",
+      "options": [
+        "Field-Level Encryption",
+        "Lambda@Edge",
+        "Geo Restriction",
+        "Origin Shield"
+      ],
+      "answer": 2,
+      "rationale": "**Lambda@Edge**を使用すると、CloudFrontのエッジロケーションでコードを実行し、リクエストヘッダー（例: `Accept-Language`）に基づいてオリジンへのリクエストを変更したり、異なるコンテンツを返したりできます。"
+    },
+    {
+      "question": "企業がログデータを取り込み、ほぼリアルタイムで分析し、その結果をS3に保存したいと考えています。適切なAWSサービスの組み合わせは？",
+      "options": [
+        "AWS DataSync -> Amazon Kinesis Data Streams -> Amazon RDS",
+        "Amazon Kinesis Data Firehose -> Amazon S3 -> Amazon QuickSight",
+        "Amazon Kinesis Data Streams -> AWS Lambda -> Amazon S3",
+        "Amazon SQS -> Amazon EC2 -> Amazon Redshift"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Kinesis Data Streams -> AWS Lambda -> Amazon S3**は、サーバーレスなリアルタイム分析の一般的な設計パターンです。"
+    },
+    {
+      "question": "既存のオンプレミスアプリケーションから、AWS VPC内のリソースへプライベートに接続し、双方向の通信を行いたいです。インターネットを経由させたくありません。この接続に最も適切なAWSサービスは？",
+      "options": [
+        "AWS Site-to-Site VPN",
+        "AWS Direct Connect",
+        "VPC Peering",
+        "VPC Endpoints"
+      ],
+      "answer": 2,
+      "rationale": "オンプレミスとVPC間のプライベートな双方向接続には、高帯域幅の**AWS Direct Connect**が最も優れています。"
+    },
+    {
+      "question": "WebサーバーのログファイルがS3バケットに保存されています。これらのログは90日後にアクセスされなくなると予想されるため、最もコスト効率の良いストレージクラスに自動的に移行したいです。適切なS3機能は？",
+      "options": [
+        "S3バージョン管理",
+        "S3ライフサイクルポリシー",
+        "S3イベント通知",
+        "S3パブリックアクセスブロック"
+      ],
+      "answer": 2,
+      "rationale": "**S3ライフサイクルポリシー**を使用すると、オブジェクトが作成されてから指定した日数後に、自動的に低頻度アクセスストレージに移行したり、削除したりできます。"
+    },
+    {
+      "question": "EC2インスタンスのネットワークセキュリティを設計しています。インバウンドトラフィックをインスタンスレベルで制御したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "ネットワークACL (NACL)",
+        "セキュリティグループ (SG)",
+        "AWS WAF",
+        "AWS Shield"
+      ],
+      "answer": 2,
+      "rationale": "**セキュリティグループ**はステートフルなファイアウォールとして機能し、EC2インスタンスレベルでのインバウンドおよびアウトバウンドトラフィックを制御します。"
+    },
+    {
+      "question": "VPC内に複数のパブリックサブネットとプライベートサブネットがあります。プライベートサブネット内のEC2インスタンスが、インターネット上のパッチリポジトリからパッチをダウンロードできるようにしたいです。適切なサービスは？",
+      "options": [
+        "インターネットゲートウェイ (IGW)",
+        "VPC Peering",
+        "NAT Gateway",
+        "Egress-Only Internet Gateway"
+      ],
+      "answer": 3,
+      "rationale": "**NAT Gateway**は、プライベートサブネットからのアウトバウンド接続を許可し、インバウンド接続はブロックすることで、セキュリティを維持しながらインターネットアクセスを提供します。"
+    },
+    {
+      "question": "企業がS3バケット内のオブジェクトへのアクセスを、特定のIAMユーザーからのみに制限したいです。最も適切な方法は？",
+      "options": [
+        "IAMポリシー",
+        "S3バケットポリシー",
+        "両方使用する (IAMポリシーとS3バケットポリシー)",
+        "ACL (アクセスコントロールリスト)"
+      ],
+      "answer": 3,
+      "rationale": "AWSのベストプラクティスでは、**IAMポリシーとS3バケットポリシーの組み合わせ**が最も強力で柔軟なアクセス制御を提供します。"
+    },
+    {
+      "question": "アプリケーションで利用される大量の静的画像ファイルを、高耐久性、高可用性で保存し、コストを最小限に抑えたいです。最も適切なサービスは？",
+      "options": [
+        "Amazon EBS",
+        "Amazon EFS",
+        "Amazon S3",
+        "Amazon FSx"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon S3**は、オブジェクトストレージとして設計されており、優れた耐久性（イレブンナイン）と可用性、そして最も低コストなストレージクラスを提供します。"
+    },
+    {
+      "question": "アプリケーションが高レイテンシで処理される可能性のある非同期タスク（例: 動画のエンコード）を処理する必要があります。このタスクキューに最適なサービスは？",
+      "options": [
+        "Amazon SNS (Simple Notification Service)",
+        "Amazon SQS (Simple Queue Service)",
+        "Amazon Kinesis Data Streams",
+        "AWS Step Functions"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon SQS**は、マイクロサービスや分散システムのコンポーネント間でメッセージを分離するために使用されるフルマネージド型のメッセージキューサービスです。"
+    },
+    {
+      "question": "VPC内の異なるアベイラビリティーゾーン (AZ) にある2つのEC2インスタンス間で、低レイテンシかつ高スループットの通信を実現したいです。どの接続方法が最も適していますか？",
+      "options": [
+        "インターネットゲートウェイ経由でルーティングする。",
+        "VPC Peering接続を設定する。",
+        "デフォルトで可能であり、特別な設定は不要。",
+        "専用のNAT Gatewayを両サブネットに設置する。"
+      ],
+      "answer": 3,
+      "rationale": "VPC内のAZ間トラフィックは、**デフォルトでVPCの内部ネットワークを通じてルーティング**され、特別な設定（Peeringなど）は不要です。"
+    },
+    {
+      "question": "AWSアカウントのセキュリティを評価し、既知の脆弱性や設定ミスがないか継続的にチェックしたいです。適切なサービスは？",
+      "options": [
+        "AWS CloudTrail",
+        "Amazon GuardDuty",
+        "AWS Config",
+        "AWS Security Hub"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Config**は、AWSリソースの設定を継続的に監視し、設定がベストプラクティスやコンプライアンス要件に違反していないかを評価します。"
+    },
+    {
+      "question": "ウェブアプリケーションのフロントエンドとバックエンドのマイクロサービスをコンテナ化し、サーバー管理のオーバーヘッドなしで実行したいです。最適なコンピューティングオプションは？",
+      "options": [
+        "Amazon EC2上でDockerを実行する。",
+        "Amazon ECS (Elastic Container Service) on EC2",
+        "Amazon ECS on AWS Fargate",
+        "Amazon EKS (Elastic Kubernetes Service) on EC2"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon ECS on AWS Fargate**は、コンテナを実行するためのサーバーレスコンピューティングを提供するため、EC2インスタンスの管理（パッチ適用、スケーリング）が不要になります。"
+    },
+    {
+      "question": "企業のアプリケーションで、新しいバージョンのデプロイ中にダウンタイムを避け、トラフィックを徐々に新しいバージョンにシフトしたいです。適切なデプロイ方法は？",
+      "options": [
+        "インプレイスデプロイメント",
+        "ブルー/グリーンデプロイメント",
+        "ローリングアップデート",
+        "オールアットワンス"
+      ],
+      "answer": 2,
+      "rationale": "**ブルー/グリーンデプロイメント**は、新しい環境（グリーン）を独立して立ち上げ、テストが完了した後、トラフィックを即座に（または徐々に）古い環境（ブルー）から切り替えるため、ダウンタイムが最小限に抑えられます。"
+    },
+    {
+      "question": "既存のAmazon S3バケットを、別のAWSアカウントと共有したいです。セキュリティと管理の容易さを考慮すると、最も推奨される方法は？",
+      "options": [
+        "S3 ACLs (Access Control Lists) を使用する。",
+        "S3バケットポリシーを使用し、別アカウントのルートユーザーまたはIAMロールを許可する。",
+        "S3へのアクセスキーを共有する。",
+        "S3オブジェクトを別のAWSアカウントにコピーする。"
+      ],
+      "answer": 2,
+      "rationale": "クロスアカウントアクセスには、**S3バケットポリシー**を使用し、ターゲットアカウントのIAMエンティティ（ユーザーまたはロール）を`Principal`として指定する方法が最も推奨されます。"
+    },
+    {
+      "question": "VPC内にホストされているプライベートなWebサービスを、インターネットを経由せずに、別のVPCまたはオンプレミスデータセンターに安全に公開したいです。適切なサービスは？",
+      "options": [
+        "VPC Peering",
+        "AWS PrivateLink",
+        "NAT Gateway",
+        "AWS Transit Gateway"
+      ],
+      "answer": 2,
+      "rationale": "**AWS PrivateLink**は、インターネットを経由せずに、サービスコンシューマのVPCからサービスプロバイダのVPCにプライベートに接続するためのテクノロジーです。"
+    },
+    {
+      "question": "AWSサービスへのすべてのAPIコールと、そのユーザーID、タイムスタンプ、ソースIPアドレスなどを記録し、セキュリティ監査を可能にするサービスは？",
+      "options": [
+        "Amazon CloudWatch",
+        "AWS CloudTrail",
+        "AWS Config",
+        "Amazon Inspector"
+      ],
+      "answer": 2,
+      "rationale": "**AWS CloudTrail**は、AWSアカウントのガバナンス、コンプライアンス、運用、リスク監査のために、AWSインフラストラクチャ全体のアクティビティをイベントとして記録します。"
+    },
+    {
+      "question": "コストを最適化するために、開発環境のEC2インスタンスを夜間と週末に自動的に停止したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Auto Scaling",
+        "Amazon CloudWatch Events (EventBridge) と AWS Lambda",
+        "AWS Config",
+        "EC2インスタンスのユーザーデータ"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon CloudWatch Events (EventBridge)**のスケジュール機能と**AWS Lambda**を組み合わせることで、特定の時刻にEC2を停止/開始するスクリプトをサーバーレスで実行できます。"
+    },
+    {
+      "question": "WebアプリケーションのバックエンドがAmazon SQSからメッセージを処理しています。メッセージが一定時間内に処理されない場合に、別のキューに隔離して調査できるようにしたいです。どの機能を使用すべきですか？",
+      "options": [
+        "メッセージグループ (FIFOキューのみ)",
+        "デッドレターキュー (DLQ)",
+        "可視性タイムアウトの延長",
+        "遅延キュー"
+      ],
+      "answer": 2,
+      "rationale": "**デッドレターキュー (DLQ)**は、メッセージの処理が複数回失敗した場合に、そのメッセージを隔離し、後で調査するために使用されます。"
+    },
+    {
+      "question": "アプリケーションのアーキテクチャに、サーバーレスなコンピューティング、永続的なストレージ、およびAPIインターフェースが必要です。適切な組み合わせは？",
+      "options": [
+        "Amazon EC2, Amazon EBS, Application Load Balancer",
+        "AWS Lambda, Amazon S3, Amazon API Gateway",
+        "AWS Fargate, Amazon EFS, Amazon CloudFront",
+        "Amazon Lightsail, Amazon RDS, Amazon SQS"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Lambda** (サーバーレスコンピューティング)、**Amazon S3** (永続ストレージ)、**Amazon API Gateway** (APIインターフェース) は、典型的なサーバーレスアプリケーションの構成要素です。"
+    },
+    {
+      "question": "企業がS3バケット内の特定のイベント（例: 新規ファイルのアップロード）が発生したときに、Lambda関数をトリガーして処理を実行したいです。どの機能を使用すべきですか？",
+      "options": [
+        "S3ライフサイクルポリシー",
+        "S3バージョニング",
+        "S3イベント通知",
+        "S3クロスリージョンレプリケーション (CRR)"
+      ],
+      "answer": 3,
+      "rationale": "**S3イベント通知**を使用して、バケット内のオブジェクト操作（PUT、DELETEなど）をトリガーとして、Lambda関数、SQSキュー、またはSNSトピックに通知を送信できます。"
+    },
+    {
+      "question": "アプリケーションが地理的に分散した複数のユーザーグループにサービスを提供しており、DNSクエリに対して最も低いレイテンシのAWSリージョンにユーザーをルーティングしたいです。どのRoute 53ルーティングポリシーを使用すべきですか？",
+      "options": [
+        "シンプルルーティングポリシー",
+        "レイテンシールーティングポリシー",
+        "フェイルオーバールーティングポリシー",
+        "加重ルーティングポリシー"
+      ],
+      "answer": 2,
+      "rationale": "**レイテンシールーティングポリシー**は、ユーザーの場所に基づいて、最も低いレイテンシを提供するリージョンにトラフィックをルーティングします。"
+    },
+    {
+      "question": "VPCのサブネット間で、セキュリティグループではなく、トラフィックをステートレスにフィルタリングしたいです。どのサービスを使用すべきですか？",
+      "options": [
+        "ネットワークACL (NACL)",
+        "セキュリティグループ",
+        "VPC Flow Logs",
+        "AWS WAF"
+      ],
+      "answer": 1,
+      "rationale": "**ネットワークACL (NACL)**は、サブネットレベルで動作するステートレスなファイアウォールとして機能し、トラフィックを許可または拒否します。"
+    },
+    {
+      "question": "アプリケーションのバックエンドとして、EC2インスタンスとRDSインスタンスがプライベートサブネットに配置されています。これらのインスタンスがインターネット上のリソースにアクセスできないようにしつつ、AWSのサービス（例: CloudWatch）にアクセスできるようにしたいです。適切な組み合わせは？",
+      "options": [
+        "NAT Gatewayとインターネットゲートウェイ",
+        "VPCエンドポイントのみ",
+        "Egress-Only Internet GatewayとVPCエンドポイント",
+        "NAT Instanceとインターネットゲートウェイ"
+      ],
+      "answer": 2,
+      "rationale": "**VPCエンドポイントのみ**を使用すれば、プライベートな接続経由でAWSサービスにアクセスでき、インターネットへのルーティングは不要です。"
+    },
+    {
+      "question": "企業が法規制を遵守するため、すべてのEC2インスタンスが起動時に特定のセキュリティエージェントをインストールしていることを確認する必要があります。どの機能を使用すべきですか？",
+      "options": [
+        "EC2ユーザーデータ",
+        "AWS Systems Manager Run Command",
+        "AWS Configルール",
+        "AWS Service Catalog"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Configルール**を使用して、起動されたEC2インスタンスが目的の設定（例: エージェントの有無）を満たしているかを継続的に評価できます。"
+    },
+    {
+      "question": "既存のレガシーアプリケーションをAWSに移行し、ファイルシステムとして数テラバイトの共有ストレージが必要です。このストレージは複数のEC2インスタンスから同時にアクセスされ、スケーラブルである必要があります。最適なサービスは？",
+      "options": [
+        "Amazon EBS",
+        "Amazon S3",
+        "Amazon EFS (Elastic File System)",
+        "Amazon DynamoDB"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon EFS**は、複数のEC2インスタンスから同時に接続可能なスケーラブルなファイルシステムを提供します。"
+    },
+    {
+      "question": "アプリケーションのS3バケットへのアクセスを、特定の期間だけ、認証情報なしで許可したいです。どのS3機能を使用すべきですか？",
+      "options": [
+        "S3バケットポリシー",
+        "S3 ACL",
+        "署名付きURL (Pre-signed URLs)",
+        "IAMポリシー"
+      ],
+      "answer": 3,
+      "rationale": "**署名付きURL**を使用すると、AWSの認証情報を持たないユーザーでも、有効期限が設定されたURLを通じてS3オブジェクトへの一時的なアクセス権を取得できます。"
+    },
+    {
+      "question": "大規模なデータウェアハウスソリューションを構築しており、ペタバイト級の構造化データを保存し、複雑な分析クエリを高速に実行したいです。最適なサービスは？",
+      "options": [
+        "Amazon RDS",
+        "Amazon Aurora",
+        "Amazon DynamoDB",
+        "Amazon Redshift"
+      ],
+      "answer": 4,
+      "rationale": "**Amazon Redshift**は、大規模なデータウェアハウスおよび分析ワークロードのために設計されたペタバイト級のマネージドサービスです。"
+    },
+    {
+      "question": "EC2インスタンスのCPU使用率が80%を超えた場合に、自動的に新しいインスタンスを起動して負荷を分散したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "Amazon CloudWatch Logs",
+        "AWS Auto Scaling",
+        "AWS Elastic Beanstalk",
+        "AWS OpsWorks"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Auto Scaling**は、CloudWatchメトリクス（CPU使用率など）に基づいて、容量を増減させることで、アプリケーションの可用性とコスト効率を維持します。"
+    },
+    {
+      "question": "VPC内にVPC Peering接続を作成し、2つのVPC間のトラフィックをルーティングしたいです。この接続はトランジット的なルーティング（VPC A -> VPC B -> VPC C）をサポートしますか？",
+      "options": [
+        "サポートする。特別な設定は不要。",
+        "サポートするが、ルートテーブルに明示的な設定が必要。",
+        "サポートしない。これはTransit Gatewayの機能である。",
+        "NAT Gatewayを介せばサポートする。"
+      ],
+      "answer": 3,
+      "rationale": "**VPC Peeringはトランジット的なルーティング（推移的なピアリング）をサポートしません。**これはAWS Transit Gatewayを使用する必要があります。"
+    },
+    {
+      "question": "企業がコンプライアンス要件により、データが保存されている国・リージョンを厳密に管理したいです。どのサービス機能を使用すべきですか？",
+      "options": [
+        "S3クロスリージョンレプリケーション (CRR)",
+        "S3バケットのリージョン設定",
+        "S3オブジェクトロック",
+        "CloudFrontのGeo Restriction"
+      ],
+      "answer": 2,
+      "rationale": "S3バケットを作成する際に指定する**リージョン設定**により、データが物理的に保存される地理的な場所が決定され、これを変更することはできません。"
+    },
+    {
+      "question": "AWS Fargateで実行されるコンテナ化されたアプリケーションのセキュリティを継続的に監視し、潜在的な脅威（不正なAPIコール、疑わしいネットワークアクティビティ）を検出したいです。適切なサービスは？",
+      "options": [
+        "AWS WAF",
+        "AWS Config",
+        "Amazon GuardDuty",
+        "AWS Trusted Advisor"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon GuardDuty**は、AWSアカウントとワークロードの継続的な脅威検出サービスであり、Fargateの脅威も監視します。"
+    },
+    {
+      "question": "アプリケーションのすべてのレイヤーで冗長性を確保したいです。Auto Scalingグループは最低2つのEC2インスタンスを維持し、データベースは高速フェイルオーバーが必要です。適切なアーキテクチャの要素は？",
+      "options": [
+        "シングルAZ、リードレプリカ",
+        "マルチAZ、RDSリードレプリカ",
+        "マルチAZ、RDS Multi-AZ",
+        "シングルAZ、RDS Multi-AZ"
+      ],
+      "answer": 3,
+      "rationale": "**マルチAZ**（Auto Scalingグループを複数のAZに分散）と**RDS Multi-AZ**（自動フェイルオーバーと冗長性を提供）の組み合わせが、高可用性を実現する基本です。"
+    },
+    {
+      "question": "企業のアプリケーションが、AWSのサービスにアクセスするために一時的な認証情報（短期的なアクセスキー）を必要としています。どのサービスがこの認証情報を発行しますか？",
+      "options": [
+        "AWS KMS (Key Management Service)",
+        "AWS IAM (Identity and Access Management)",
+        "AWS STS (Security Token Service)",
+        "AWS Secrets Manager"
+      ],
+      "answer": 3,
+      "rationale": "**AWS STS**は、AWSリソースへのアクセスを可能にする一時的な、制限付きの認証情報（セッショントークン）をユーザーに提供するサービスです。"
+    },
+    {
+      "question": "Webサイトの画像処理が、ユーザーのリクエストに応じてEC2インスタンス上で実行され、処理時間が予測できません。ユーザーの待ち時間を最小限に抑えたいです。どのアーキテクチャパターンが適していますか？",
+      "options": [
+        "EC2インスタンス数を増やし、ALBで負荷分散する。",
+        "Amazon SQSキューを使用して、処理リクエストを非同期化する。",
+        "すべての処理をLambda@Edgeに移行する。",
+        "Amazon Simple Workflow Service (SWF) を使用する。"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon SQSキュー**を使用してリクエストを非同期化することで、ユーザーはすぐに応答を受け取り、処理はバックエンドで実行され、待ち時間を最小限に抑えることができます。"
+    },
+    {
+      "question": "アプリケーションの新しい機能のパフォーマンスを、既存の機能と比較したいです。トラフィックのごく一部を新しい機能にルーティングし、テスト後にトラフィックを完全に切り替えたいです。どのRoute 53ルーティングポリシーを使用すべきですか？",
+      "options": [
+        "シンプルルーティングポリシー",
+        "加重ルーティングポリシー",
+        "レイテンシールーティングポリシー",
+        "マルチバリュー応答ルーティングポリシー"
+      ],
+      "answer": 2,
+      "rationale": "**加重ルーティングポリシー**は、トラフィックを複数のリソースに指定した割合（重み）でルーティングし、A/Bテストやカナリアデプロイメントに最適です。"
+    },
+    {
+      "question": "EC2インスタンスのプライベートIPアドレスのみを知っており、そのインスタンスに安全に接続したいです。踏み台サーバーを使わずに、SSH/RDP接続を仲介するサービスは？",
+      "options": [
+        "AWS VPN",
+        "AWS Direct Connect",
+        "AWS Systems Manager Session Manager",
+        "VPC Peering"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Systems Manager Session Manager**は、SSH/RDPポートを開放することなく、IAMで制御された安全な方法でEC2インスタンスに接続できます。"
+    },
+    {
+      "question": "S3バケット内のオブジェクトにアクセスログ（誰が、いつ、何をしたか）を記録したいです。ログを保存するために、別のS3バケットを指定する必要がありますか？",
+      "options": [
+        "はい、アクセスログを保存するバケットは、ログ対象のバケットとは別のバケットである必要があります。",
+        "いいえ、同じバケット内に保存するのが推奨されます。",
+        "いいえ、Amazon CloudWatch Logsに直接保存されます。",
+        "はい、ログはAmazon DynamoDBに保存する必要があります。"
+      ],
+      "answer": 1,
+      "rationale": "S3の**アクセスログ**は、ログのループを防ぐため、ログの発生元となるバケットとは**別の**バケットに保存する必要があります。"
+    },
+    {
+      "question": "複数のAWSアカウントで共通のネットワークインフラストラクチャ（例: 共有VPC、Direct Connect接続）を集中管理し、一元的な制御を行いたい。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Resource Access Manager (RAM)",
+        "AWS Organizations",
+        "AWS Service Catalog",
+        "AWS Control Tower"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Organizations**は、複数のAWSアカウントを一元管理し、コンプライアンスやガバナンスポリシーを一括適用するためのサービスです。"
+    },
+    {
+      "question": "アプリケーションのデータを異なるリージョンに複製し、RTO/RPOの要件を満たしつつ、**コスト**を抑えたいです。どのRDS機能を使用すべきですか？",
+      "options": [
+        "RDS Multi-AZ",
+        "Aurora Global Database",
+        "RDSリードレプリカを別のリージョンに作成する",
+        "RDSスナップショットを別リージョンに手動でコピーする"
+      ],
+      "answer": 3,
+      "rationale": "**RDSリードレプリカを別のリージョンに作成**し、災害時にそれをプライマリに昇格させる方法は、Aurora Global Databaseよりも設定が簡単で、Multi-AZよりもリージョン障害への耐性があり、コストとDRのバランスが取れています。"
+    },
+    {
+      "question": "アプリケーションが、既存のオンプレミスLDAPディレクトリを使用してユーザーを認証する必要があります。AWSサービスへのアクセスを統合するサービスは？",
+      "options": [
+        "Amazon Cognito",
+        "AWS Directory Service (Simple AD)",
+        "AWS Directory Service (AD Connector)",
+        "AWS Organizations"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Directory Service (AD Connector)**は、既存のオンプレミスのActive Directory（AD）にトラフィックをプロキシし、ユーザー認証をAWSサービスに統合できます。"
+    },
+    {
+      "question": "企業がWebサイトでHTTPSを使用しており、エンドツーエンドの暗号化（クライアントからオリジンまで）を確実に行いたいです。CloudFrontの設定で何を確認すべきですか？",
+      "options": [
+        "Origin Protocol PolicyをHTTPのみに設定する。",
+        "Viewer Protocol PolicyをRedirect HTTP to HTTPSに設定する。",
+        "Origin Protocol PolicyをHTTPS Onlyに設定する。",
+        "Field-Level Encryptionを有効にする。"
+      ],
+      "answer": 3,
+      "rationale": "クライアントとCloudFront間の接続に加えて、**CloudFrontとオリジン間の接続もHTTPS Onlyに設定**することで、エンドツーエンドの暗号化が保証されます。"
+    },
+    {
+      "question": "AWSアカウントで意図しないリソースの作成や変更を防ぐために、特定のアクション（例: EC2インスタンスの削除）を特定のIAMユーザーに対して完全に禁止したいです。適切なIAM機能は？",
+      "options": [
+        "IAMロール",
+        "サービスコントロールポリシー (SCP)",
+        "IAMポリシー（明示的な拒否）",
+        "アクセスアドバイザー"
+      ],
+      "answer": 3,
+      "rationale": "IAMポリシーの**明示的な拒否（Explicit Deny）**は、明示的な許可よりも常に優先されるため、特定のアクションを確実に禁止する最も強力な方法です。"
+    },
+    {
+      "question": "アプリケーションがS3に保存されたオブジェクトのメタデータを高速に検索する必要があります。S3のオブジェクトデータをクエリするための適切なサービスは？",
+      "options": [
+        "Amazon RDS",
+        "Amazon S3 Select",
+        "Amazon Athena",
+        "Amazon Kinesis Data Firehose"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Athena**は、S3内のデータを標準SQLを使用して直接クエリできるサーバーレス分析サービスです。"
+    },
+    {
+      "question": "企業が多数のVPCを持ち、すべてのVPCからのトラフィックログを一元的に収集・分析したいです。適切なサービスは？",
+      "options": [
+        "AWS CloudTrail",
+        "VPC Flow Logs",
+        "AWS Config",
+        "Amazon GuardDuty"
+      ],
+      "answer": 2,
+      "rationale": "**VPC Flow Logs**は、VPC内のネットワークインターフェイスを行き来するIPトラフィックに関する情報をキャプチャします。これをS3やCloudWatch Logsに集約して分析します。"
+    },
+    {
+      "question": "Webアプリケーションのバックエンドとして、応答時間（レイテンシ）に変動があり、処理に時間がかかる可能性のあるAPIがあります。ユーザー体験を向上させるために、API Gatewayでできることは？",
+      "options": [
+        "API Gatewayのキャッシュを有効にする。",
+        "API GatewayをVPCエンドポイントに接続する。",
+        "統合タイムアウトの値を下げる。",
+        "Lambdaプロキシ統合を使用しない。"
+      ],
+      "answer": 1,
+      "rationale": "API Gatewayの**キャッシュを有効にする**ことで、バックエンドへのアクセス頻度が減り、特に読み取りのレイテンシを大幅に改善できます。"
+    },
+    {
+      "question": "Amazon S3の耐久性はどのレベルで保証されていますか？",
+      "options": [
+        "99.9% (スリーナイン)",
+        "99.99% (フォーナイン)",
+        "99.999999999% (イレブンナイン)",
+        "100% (ゼロダウンタイム)"
+      ],
+      "answer": 3,
+      "rationale": "Amazon S3は、**99.999999999%（イレブンナイン）**のオブジェクト耐久性を実現するように設計されています。"
+    },
+    {
+      "question": "Webアプリケーションのフロントエンドとバックエンドのマイクロサービスをコンテナ化し、サーバー管理のオーバーヘッドなしで実行したいです。最適なコンピューティングオプションは？",
+      "options": [
+        "Amazon EC2上でDockerを実行する。",
+        "Amazon ECS (Elastic Container Service) on EC2",
+        "Amazon ECS on AWS Fargate",
+        "Amazon EKS (Elastic Kubernetes Service) on EC2"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon ECS on AWS Fargate**は、コンテナを実行するためのサーバーレスコンピューティングを提供するため、EC2インスタンスの管理が不要になります。"
+    },
+    {
+      "question": "既存のオンプレミスVMイメージをAWSに移行し、EC2インスタンスとして実行したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Database Migration Service (DMS)",
+        "AWS Server Migration Service (SMS)",
+        "AWS Application Migration Service (MGN)",
+        "AWS Transfer Family"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Application Migration Service (MGN)**は、物理サーバー、VMware vSphere、Microsoft Hyper-V、およびクラウドインフラストラクチャを含むさまざまなソース環境からAWSへのリフト＆シフト移行を容易にするサービスです。"
+    },
+    {
+      "question": "AWSリソースの月次コストが急増した場合に通知を受け取りたいです。適切なサービスは？",
+      "options": [
+        "Amazon CloudWatchアラーム",
+        "AWS Trusted Advisor",
+        "AWS Budgets",
+        "AWS Cost Explorer"
+      ],
+      "answer": 3,
+      "rationale": "**AWS Budgets**を使用すると、予算しきい値を設定し、実際のコストまたは予測コストがそのしきい値を超えた場合に通知を受け取ることができます。"
+    },
+    {
+      "question": "高可用性と耐久性を高めるために、RDSインスタンスのバックアップを別のリージョンに自動的に複製したいです。適切なRDS機能は？",
+      "options": [
+        "RDS Multi-AZ",
+        "リードレプリカ",
+        "自動バックアップとクロスリージョンコピー",
+        "RDS Proxy"
+      ],
+      "answer": 3,
+      "rationale": "**自動バックアップ**を有効にし、そのバックアップスナップショットを**クロスリージョンに自動的にコピー**する設定が可能です。"
+    },
+    {
+      "question": "企業が、S3バケット内の特定のオブジェクトのパブリックアクセスを意図せず許可してしまった場合に通知を受け取りたいです。適切なサービスは？",
+      "options": [
+        "AWS CloudTrail",
+        "AWS Config",
+        "Amazon GuardDuty",
+        "S3バケットポリシー"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Config**のルールを使用して、S3バケットのポリシーがパブリックアクセスを許可していないかを継続的に監視し、違反時にアラートを出すことができます。"
+    },
+    {
+      "question": "VPC内に新しいサブネットを作成しました。このサブネットが**デフォルトで**持つネットワークACLのインバウンドとアウトバウンドのルールは？",
+      "options": [
+        "すべて拒否 (Deny All)",
+        "すべて許可 (Allow All)",
+        "インバウンドはすべて拒否、アウトバウンドはすべて許可",
+        "インバウンドはすべて許可、アウトバウンドはすべて拒否"
+      ],
+      "answer": 2,
+      "rationale": "新しいVPCに作成された**デフォルトのNACL**は、インバウンドおよびアウトバウンドトラフィックを**すべて許可**するルールで設定されています。"
+    },
+    {
+      "question": "Webアプリケーションで大量の画像がS3に保存されています。クライアントからS3に直接画像をアップロードさせたいですが、AWS認証情報をクライアントに公開したくありません。どの機能を使用すべきですか？",
+      "options": [
+        "IAMポリシー",
+        "署名付きURL (Pre-signed URLs)",
+        "S3バケットポリシー",
+        "VPCエンドポイント"
+      ],
+      "answer": 2,
+      "rationale": "**署名付きURL**は、ユーザーに一時的なアップロード権限を与える最も安全な方法です。"
+    },
+    {
+      "question": "AWSアカウントで、すべてのIAMユーザーにMFA（多要素認証）を義務付けたいです。この要件を技術的に強制するための最も適切な方法は？",
+      "options": [
+        "IAMアクセスアドバイザー",
+        "IAMグループポリシー",
+        "IAMポリシー（MFAが有効でない場合の拒否）",
+        "AWS Security Hub"
+      ],
+      "answer": 3,
+      "rationale": "MFAを強制するには、**IAMポリシー**内で`Condition`ブロックを使用し、MFAが有効でない場合のアクセスを**明示的に拒否**する必要があります。"
+    },
+    {
+      "question": "アプリケーションのトラフィックが非常に短時間で急激に増加することが予測されます（フラッシュクラウド）。このトラフィックを処理するために、どのロードバランサーを使用すべきですか？",
+      "options": [
+        "Classic Load Balancer (CLB)",
+        "Network Load Balancer (NLB)",
+        "Application Load Balancer (ALB)",
+        "NLBとALBの組み合わせ"
+      ],
+      "answer": 2,
+      "rationale": "**Network Load Balancer (NLB)**は、自動的にスケールアウトし、既存のロードバランサーよりもはるかに速く大量のトラフィックを処理するように設計されています。"
+    },
+    {
+      "question": "企業がS3バケット内のデータを、**別のAWSアカウント**が所有するS3バケットにリアルタイムで複製したいです。適切なS3機能は？",
+      "options": [
+        "S3ライフサイクルポリシー",
+        "S3バージョン管理",
+        "S3クロスリージョンレプリケーション (CRR)",
+        "S3 Same-Region Replication (SRR)"
+      ],
+      "answer": 4,
+      "rationale": "同じリージョン内、または異なるリージョン間（CRR）で、**別のAWSアカウント**にオブジェクトを複製する場合にも、**S3レプリケーション**機能（SRRまたはCRR）を使用します。"
+    },
+    {
+      "question": "VPCを設計しています。CIDRブロックが`10.0.0.0/16`のVPCがあり、そのVPC内に作成できる最大のサブネット数は？",
+      "options": [
+        "256",
+        "512",
+        "65,536",
+        "制限なし"
+      ],
+      "answer": 1,
+      "rationale": "AWSでは、サブネットの最小サイズが`/28`であるため、`/16`のVPCでは最大`2^(28-16) = 2^12 = 4096`個作成できますが、より現実的なサイズ（例: `/24`）を考えると256個（`2^8`）が一般的な設問で問われます。しかし、最も重要な点は、**VPCの制限が200個**であることです。ここでは選択肢から論理的な最大値に近いものが**256**のため、これが正解と推測されます。ただし、AWSの**サブネットの最大数**は、アカウントのソフトリミット（デフォルトでは200）に制限されます。"
+    },
+    {
+      "question": "EC2インスタンスのOSレベルで脆弱性を自動的に検出・評価したいです。適切なサービスは？",
+      "options": [
+        "AWS Security Hub",
+        "Amazon Inspector",
+        "AWS Config",
+        "Amazon GuardDuty"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon Inspector**は、EC2インスタンス上のアプリケーションとOSの脆弱性を自動的に評価します。"
+    },
+    {
+      "question": "サーバーレスなデータ処理パイプラインを構築しています。S3にファイルがアップロードされたときにLambda関数をトリガーし、そのLambda関数がAuroraデータベースにアクセスする必要があります。Lambdaの認証情報管理に最適なサービスは？",
+      "options": [
+        "IAMロール (Lambda実行ロール)",
+        "AWS Secrets Manager",
+        "AWS KMS",
+        "IAMアクセスキー"
+      ],
+      "answer": 2,
+      "rationale": "データベースの認証情報（ユーザー名/パスワード）などのシークレットをLambdaが安全に取得・使用し、ローテーション管理を行うために、**AWS Secrets Manager**が最も適しています。"
+    },
+    {
+      "question": "企業が、オンプレミスのサーバーをAWSのEC2に移行しました。移行後のEC2インスタンスのライセンス費用を最小限に抑えたいです。適切なEC2購入オプションは？",
+      "options": [
+        "オンデマンドインスタンス",
+        "スポットインスタンス",
+        "専用インスタンス (Dedicated Instances)",
+        "専用ホスト (Dedicated Hosts)"
+      ],
+      "answer": 4,
+      "rationale": "**専用ホスト (Dedicated Hosts)**を使用すると、既存のソフトウェアベンダーライセンス（Windows Serverなど）を持ち込むことができ、ライセンス費用を削減できます。"
+    },
+    {
+      "question": "ウェブサイトのユーザーセッションデータは一時的であり、高いスループットと低レイテンシでアクセスされる必要があります。データが失われても許容されます。最適なストレージは？",
+      "options": [
+        "Amazon DynamoDB",
+        "Amazon Aurora",
+        "Amazon ElastiCache",
+        "Amazon S3"
+      ],
+      "answer": 3,
+      "rationale": "一時的なセッションデータを低レイテンシで処理するには、インメモリデータストアである**Amazon ElastiCache**が最も適しています。"
+    },
+    {
+      "question": "RDSデータベースの接続を効率的に管理し、アイドル接続の切断を回避し、アプリケーションのフェイルオーバー時間を短縮したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "RDSリードレプリカ",
+        "RDS Multi-AZ",
+        "RDS Proxy",
+        "Amazon ElastiCache"
+      ],
+      "answer": 3,
+      "rationale": "**RDS Proxy**は、接続プールを使用してデータベース接続を効率的に管理し、データベースのフェイルオーバー中に接続を維持することで、アプリケーションのフェイルオーバー時間を短縮します。"
+    },
+    {
+      "question": "企業が、顧客の個人情報（PII）をS3に保存しています。保存前にPIIデータを自動的に検出・識別したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "Amazon Macie",
+        "AWS WAF"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Macie**は、機械学習を使用してS3に保存されている機密データ（PIIなど）を自動的に検出し、保護するサービスです。"
+    },
+    {
+      "question": "Auto ScalingグループでEC2インスタンスが起動する際に、アプリケーションコードや設定を自動的にインストール・設定したいです。どの機能を使用すべきですか？",
+      "options": [
+        "EC2 Key Pairs",
+        "EC2ユーザーデータ (User Data)",
+        "Amazon Machine Image (AMI)",
+        "AWS Systems Manager Session Manager"
+      ],
+      "answer": 2,
+      "rationale": "**EC2ユーザーデータ**は、インスタンスの起動時に一度だけ実行されるスクリプトを指定するために使用されます。"
+    },
+    {
+      "question": "AWSの外部にあるDNSサービス（例: お名前.com）を使用してドメインを管理していますが、一部のサブドメイン（例: api.example.com）のトラフィックをAWSリソースにルーティングしたいです。どのRoute 53機能を使用すべきですか？",
+      "options": [
+        "プライベートホストゾーン",
+        "パブリックホストゾーン",
+        "ヘルスチェック",
+        "ゾーンエイリアス"
+      ],
+      "answer": 2,
+      "rationale": "外部でドメインを管理しつつ、AWSリソースにトラフィックをルーティングするには、**パブリックホストゾーン**を作成し、外部DNSサーバーでNSレコードをRoute 53のNSサーバーに向ける必要があります。"
+    },
+    {
+      "question": "RDSデータベースのバックアップからの復元にかかる時間を最小限に抑えたいです。適切な復元オプションは？",
+      "options": [
+        "最新の自動バックアップポイントに復元する。",
+        "手動スナップショットに復元する。",
+        "ポイントインタイムリカバリ (PITR) を使用して、指定した時間に復元する。",
+        "リードレプリカをプライマリに昇格させる。"
+      ],
+      "answer": 3,
+      "rationale": "**ポイントインタイムリカバリ (PITR)**は、最新の復元可能な時点までデータベースを復元できるため、最も最新の状態に復元するのに適しています。"
+    },
+    {
+      "question": "企業が、特定のサードパーティ製サービス（例: Salesforce）への接続をプライベートネットワーク経由で行い、インターネットに出ることなくセキュアな通信を実現したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "VPC Peering",
+        "AWS PrivateLink",
+        "AWS Client VPN",
+        "AWS Site-to-Site VPN"
+      ],
+      "answer": 2,
+      "rationale": "**AWS PrivateLink**は、AWS内のサービスプロバイダとサービスコンシューマ間のプライベート接続を可能にします。サードパーティサービスがPrivateLinkを介して提供されている場合、インターネットに出ることなく接続できます。"
+    },
+    {
+      "question": "AWSアカウントで、リソースの作成、削除、変更などのアクティビティを継続的に監視し、コンプライアンス監査に利用したいです。適切なサービスは？",
+      "options": [
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Config",
+        "AWS Systems Manager"
+      ],
+      "answer": 1,
+      "rationale": "**AWS CloudTrail**は、AWSアカウント内のすべてのアクティビティをイベントとして記録し、セキュリティ分析やコンプライアンス監査に利用されます。"
+    },
+    {
+      "question": "Webサイトのコンテンツ配信において、オリジンサーバー（EC2やS3）への負荷を軽減したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "Application Load Balancer (ALB)",
+        "AWS Global Accelerator",
+        "Amazon CloudFront",
+        "Amazon VPC"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon CloudFront**は、エッジロケーションでコンテンツをキャッシュし、オリジンサーバーへのリクエスト数を減らすことで負荷を大幅に軽減します。"
+    },
+    {
+      "question": "EC2インスタンスのCPU使用率、ネットワークI/O、ディスクI/Oなどのメトリクスを監視し、アラートを設定したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Config",
+        "Amazon GuardDuty"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon CloudWatch**は、AWSリソースとカスタムアプリケーションの両方のメトリクスを収集・追跡し、アラームを設定するモニタリングサービスです。"
+    },
+    {
+      "question": "複数のEC2インスタンス間で、低レイテンシかつ高スループットな分散ブロックストレージを提供し、カスタムファイルシステムを実行したいです。どのストレージサービスが適していますか？",
+      "options": [
+        "Amazon EBS",
+        "Amazon EFS",
+        "Amazon S3",
+        "Amazon FSx for Lustre"
+      ],
+      "answer": 1,
+      "rationale": "**Amazon EBS**は、EC2インスタンスにアタッチできるブロックレベルのストレージを提供し、カスタムファイルシステムを実行できます。"
+    },
+    {
+      "question": "VPC内にVPC Peering接続を設定しました。セキュリティグループは、トラフィックを許可するように設定されていますが、トラフィックがルーティングされていません。考えられる原因は？",
+      "options": [
+        "VPC Peering接続がアクティブになっていない。",
+        "ルートテーブルにPeering接続へのルートが設定されていない。",
+        "ネットワークACLがトラフィックをブロックしている。",
+        "EC2インスタンスがプライベートサブネットにない。"
+      ],
+      "answer": 2,
+      "rationale": "VPC Peering接続が有効になった後でも、**各VPCのルートテーブル**に、相手側のCIDRブロックへのルートがPeering接続をターゲットとして設定されていないと、トラフィックはルーティングされません。"
+    },
+    {
+      "question": "Webアプリケーションでユーザー認証と認可を管理し、ソーシャルIDプロバイダー（例: Google、Facebook）との連携も実現したいです。最適なサービスは？",
+      "options": [
+        "AWS IAM",
+        "AWS Directory Service",
+        "Amazon Cognito",
+        "AWS STS"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Cognito**は、モバイルおよびWebアプリケーション向けのユーザー認証、認可、ユーザー管理を提供するサービスであり、外部IDプロバイダーとの連携もサポートします。"
+    },
+    {
+      "question": "企業がS3バケットのデータを、別のリージョンに非同期で複製し、ディザスタリカバリ体制を強化したいです。適切なS3機能は？",
+      "options": [
+        "S3バージョン管理",
+        "S3ライフサイクルポリシー",
+        "S3クロスリージョンレプリケーション (CRR)",
+        "S3 Transfer Acceleration"
+      ],
+      "answer": 3,
+      "rationale": "**S3クロスリージョンレプリケーション (CRR)**は、オブジェクトを自動的かつ非同期的にターゲットリージョンのバケットに複製します。"
+    },
+    {
+      "question": "EC2インスタンスが起動に失敗した際や、ステータスチェックに失敗した際に、自動的にインスタンスを再起動したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Auto Scaling",
+        "Amazon CloudWatchアラーム",
+        "AWS Systems Manager Run Command",
+        "AWS Health"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon CloudWatchアラーム**で、インスタンスステータスチェックやシステムステータスチェックの失敗を監視し、リカバリアクションを自動的に実行できます。"
+    },
+    {
+      "question": "VPC内に、IPv6アドレスを持つEC2インスタンスがあります。このインスタンスがインターネットにアウトバウンド接続できる必要がありますが、インバウンド接続はブロックしたいです。適切なサービスは？",
+      "options": [
+        "NAT Gateway",
+        "インターネットゲートウェイ (IGW)",
+        "Egress-Only Internet Gateway",
+        "VPCエンドポイント"
+      ],
+      "answer": 3,
+      "rationale": "**Egress-Only Internet Gateway**は、IPv6トラフィックに対して、プライベートサブネット内のインスタンスからのアウトバウンド接続を許可し、インターネットからのインバウンド接続をブロックします。"
+    },
+    {
+      "question": "アプリケーションのトラフィックが急増し、既存のEC2インスタンスでは処理しきれなくなっています。最も早く容量を追加できるEC2の購入オプションは？",
+      "options": [
+        "リザーブドインスタンス",
+        "オンデマンドインスタンス",
+        "スポットインスタンス",
+        "Savings Plans"
+      ],
+      "answer": 2,
+      "rationale": "**オンデマンドインスタンス**は、必要なときにすぐに起動でき、容量の制約を受けにくいため、急な需要に対応する最も迅速な方法です。"
+    },
+    {
+      "question": "企業がRDSデータベースのスナップショットをS3に保存しています。S3に保存されているスナップショットを復号化・管理するためにどのサービスを使用すべきですか？",
+      "options": [
+        "Amazon S3 Transfer Acceleration",
+        "AWS Key Management Service (KMS)",
+        "AWS Secrets Manager",
+        "AWS Certificate Manager (ACM)"
+      ],
+      "answer": 2,
+      "rationale": "データの暗号化と復号化に使用されるキーを管理するために、**AWS Key Management Service (KMS)**を使用します。"
+    },
+    {
+      "question": "RDSデータベースのバックアップからの復元にかかる時間を最小限に抑えたいです。適切な復元オプションは？",
+      "options": [
+        "最新の自動バックアップポイントに復元する。",
+        "手動スナップショットに復元する。",
+        "ポイントインタイムリカバリ (PITR) を使用して、指定した時間に復元する。",
+        "リードレプリカをプライマリに昇格させる。"
+      ],
+      "answer": 3,
+      "rationale": "**ポイントインタイムリカバリ (PITR)**は、最新の復元可能な時点までデータベースを復元できるため、最も最新の状態に復元するのに適しています。"
+    },
+    {
+      "question": "企業が、S3バケットのデータが誤って削除されることを防ぎたいです。削除が発生した場合でも、以前のバージョンのオブジェクトを復元できるようにしたいです。どのS3機能を使用すべきですか？",
+      "options": [
+        "S3ライフサイクルポリシー",
+        "S3バージョン管理",
+        "S3オブジェクトロック",
+        "S3イベント通知"
+      ],
+      "answer": 2,
+      "rationale": "**S3バージョン管理**を有効にすると、同じキーのオブジェクトを上書きまたは削除しても、以前のバージョンが保持され、復元が可能になります。"
+    },
+    {
+      "question": "AWSアカウントのセキュリティを強化するため、ルートユーザーのアクセスキーを作成しないことが推奨されています。代わりに、管理者権限を持つユーザーを作成するには、どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Systems Manager",
+        "AWS IAM",
+        "AWS STS",
+        "AWS Organizations"
+      ],
+      "answer": 2,
+      "rationale": "**AWS IAM**を使用して、ルートユーザーとは別に管理者権限を持つIAMユーザーを作成し、日々の運用に使用することが推奨されます。"
+    },
+    {
+      "question": "Webサイトの画像処理が、ユーザーのリクエストに応じてEC2インスタンス上で実行され、処理時間が予測できません。ユーザーの待ち時間を最小限に抑えたいです。どのアーキテクチャパターンが適していますか？",
+      "options": [
+        "EC2インスタンス数を増やし、ALBで負荷分散する。",
+        "Amazon SQSキューを使用して、処理リクエストを非同期化する。",
+        "すべての処理をLambda@Edgeに移行する。",
+        "Amazon Simple Workflow Service (SWF) を使用する。"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon SQSキュー**を使用してリクエストを非同期化することで、ユーザーはすぐに応答を受け取り、処理はバックエンドで実行され、待ち時間を最小限に抑えることができます。"
+    },
+    {
+      "question": "複数のAWSアカウントで共通のネットワークインフラストラクチャ（例: 共有VPC、Direct Connect接続）を集中管理し、一元的な制御を行いたい。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Resource Access Manager (RAM)",
+        "AWS Organizations",
+        "AWS Service Catalog",
+        "AWS Control Tower"
+      ],
+      "answer": 2,
+      "rationale": "**AWS Organizations**は、複数のAWSアカウントを一元管理し、コンプライアンスやガバナンスポリシーを一括適用するためのサービスです。"
+    },
+    {
+      "question": "企業が、オンプレミスのサーバーをAWSのEC2に移行しました。移行後のEC2インスタンスのライセンス費用を最小限に抑えたいです。適切なEC2購入オプションは？",
+      "options": [
+        "オンデマンドインスタンス",
+        "スポットインスタンス",
+        "専用インスタンス (Dedicated Instances)",
+        "専用ホスト (Dedicated Hosts)"
+      ],
+      "answer": 4,
+      "rationale": "**専用ホスト (Dedicated Hosts)**を使用すると、既存のソフトウェアベンダーライセンス（Windows Serverなど）を持ち込むことができ、ライセンス費用を削減できます。"
+    },
+    {
+      "question": "Webサイトのユーザーセッションデータは一時的であり、高いスループットと低レイテンシでアクセスされる必要があります。データが失われても許容されます。最適なストレージは？",
+      "options": [
+        "Amazon DynamoDB",
+        "Amazon Aurora",
+        "Amazon ElastiCache",
+        "Amazon S3"
+      ],
+      "answer": 3,
+      "rationale": "一時的なセッションデータを低レイテンシで処理するには、インメモリデータストアである**Amazon ElastiCache**が最も適しています。"
+    },
+    {
+      "question": "RDSデータベースの接続を効率的に管理し、アイドル接続の切断を回避し、アプリケーションのフェイルオーバー時間を短縮したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "RDSリードレプリカ",
+        "RDS Multi-AZ",
+        "RDS Proxy",
+        "Amazon ElastiCache"
+      ],
+      "answer": 3,
+      "rationale": "**RDS Proxy**は、接続プールを使用してデータベース接続を効率的に管理し、データベースのフェイルオーバー中に接続を維持することで、アプリケーションのフェイルオーバー時間を短縮します。"
+    },
+    {
+      "question": "企業が、顧客の個人情報（PII）をS3に保存しています。保存前にPIIデータを自動的に検出・識別したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "Amazon Macie",
+        "AWS WAF"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Macie**は、機械学習を使用してS3に保存されている機密データ（PIIなど）を自動的に検出し、保護するサービスです。"
+    },
+    {
+      "question": "Auto ScalingグループでEC2インスタンスが起動する際に、アプリケーションコードや設定を自動的にインストール・設定したいです。どの機能を使用すべきですか？",
+      "options": [
+        "EC2 Key Pairs",
+        "EC2ユーザーデータ (User Data)",
+        "Amazon Machine Image (AMI)",
+        "AWS Systems Manager Session Manager"
+      ],
+      "answer": 2,
+      "rationale": "**EC2ユーザーデータ**は、インスタンスの起動時に一度だけ実行されるスクリプトを指定するために使用されます。"
+    },
+    {
+      "question": "AWSの外部にあるDNSサービス（例: お名前.com）を使用してドメインを管理していますが、一部のサブドメイン（例: api.example.com）のトラフィックをAWSリソースにルーティングしたいです。どのRoute 53機能を使用すべきですか？",
+      "options": [
+        "プライベートホストゾーン",
+        "パブリックホストゾーン",
+        "ヘルスチェック",
+        "ゾーンエイリアス"
+      ],
+      "answer": 2,
+      "rationale": "外部でドメインを管理しつつ、AWSリソースにトラフィックをルーティングするには、**パブリックホストゾーン**を作成し、外部DNSサーバーでNSレコードをRoute 53のNSサーバーに向ける必要があります。"
+    },
+    {
+      "question": "RDSデータベースのバックアップからの復元にかかる時間を最小限に抑えたいです。適切な復元オプションは？",
+      "options": [
+        "最新の自動バックアップポイントに復元する。",
+        "手動スナップショットに復元する。",
+        "ポイントインタイムリカバリ (PITR) を使用して、指定した時間に復元する。",
+        "リードレプリカをプライマリに昇格させる。"
+      ],
+      "answer": 3,
+      "rationale": "**ポイントインタイムリカバリ (PITR)**は、最新の復元可能な時点までデータベースを復元できるため、最も最新の状態に復元するのに適しています。"
+    },
+    {
+      "question": "企業が、特定のサードパーティ製サービス（例: Salesforce）への接続をプライベートネットワーク経由で行い、インターネットに出ることなくセキュアな通信を実現したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "VPC Peering",
+        "AWS PrivateLink",
+        "AWS Client VPN",
+        "AWS Site-to-Site VPN"
+      ],
+      "answer": 2,
+      "rationale": "**AWS PrivateLink**は、AWS内のサービスプロバイダとサービスコンシューマ間のプライベート接続を可能にします。サードパーティサービスがPrivateLinkを介して提供されている場合、インターネットに出ることなく接続できます。"
+    },
+    {
+      "question": "AWSアカウントで、リソースの作成、削除、変更などのアクティビティを継続的に監視し、コンプライアンス監査に利用したいです。適切なサービスは？",
+      "options": [
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Config",
+        "AWS Systems Manager"
+      ],
+      "answer": 1,
+      "rationale": "**AWS CloudTrail**は、AWSアカウント内のすべてのアクティビティをイベントとして記録し、セキュリティ分析やコンプライアンス監査に利用されます。"
+    },
+    {
+      "question": "Webサイトのコンテンツ配信において、オリジンサーバー（EC2やS3）への負荷を軽減したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "Application Load Balancer (ALB)",
+        "AWS Global Accelerator",
+        "Amazon CloudFront",
+        "Amazon VPC"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon CloudFront**は、エッジロケーションでコンテンツをキャッシュし、オリジンサーバーへのリクエスト数を減らすことで負荷を大幅に軽減します。"
+    },
+    {
+      "question": "EC2インスタンスのCPU使用率、ネットワークI/O、ディスクI/Oなどのメトリクスを監視し、アラートを設定したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Config",
+        "Amazon GuardDuty"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon CloudWatch**は、AWSリソースとカスタムアプリケーションの両方のメトリクスを収集・追跡し、アラームを設定するモニタリングサービスです。"
+    },
+    {
+      "question": "複数のEC2インスタンス間で、低レイテンシかつ高スループットな分散ブロックストレージを提供し、カスタムファイルシステムを実行したいです。どのストレージサービスが適していますか？",
+      "options": [
+        "Amazon EBS",
+        "Amazon EFS",
+        "Amazon S3",
+        "Amazon FSx for Lustre"
+      ],
+      "answer": 1,
+      "rationale": "**Amazon EBS**は、EC2インスタンスにアタッチできるブロックレベルのストレージを提供し、カスタムファイルシステムを実行できます。"
+    },
+    {
+      "question": "VPC内にVPC Peering接続を設定しました。セキュリティグループは、トラフィックを許可するように設定されていますが、トラフィックがルーティングされていません。考えられる原因は？",
+      "options": [
+        "VPC Peering接続がアクティブになっていない。",
+        "ルートテーブルにPeering接続へのルートが設定されていない。",
+        "ネットワークACLがトラフィックをブロックしている。",
+        "EC2インスタンスがプライベートサブネットにない。"
+      ],
+      "answer": 2,
+      "rationale": "VPC Peering接続が有効になった後でも、**各VPCのルートテーブル**に、相手側のCIDRブロックへのルートがPeering接続をターゲットとして設定されていないと、トラフィックはルーティングされません。"
+    },
+    {
+      "question": "Webアプリケーションでユーザー認証と認可を管理し、ソーシャルIDプロバイダー（例: Google、Facebook）との連携も実現したいです。最適なサービスは？",
+      "options": [
+        "AWS IAM",
+        "AWS Directory Service",
+        "Amazon Cognito",
+        "AWS STS"
+      ],
+      "answer": 3,
+      "rationale": "**Amazon Cognito**は、モバイルおよびWebアプリケーション向けのユーザー認証、認可、ユーザー管理を提供するサービスであり、外部IDプロバイダーとの連携もサポートします。"
+    },
+    {
+      "question": "企業がS3バケットのデータを、別のリージョンに非同期で複製し、ディザスタリカバリ体制を強化したいです。適切なS3機能は？",
+      "options": [
+        "S3バージョン管理",
+        "S3ライフサイクルポリシー",
+        "S3クロスリージョンレプリケーション (CRR)",
+        "S3 Same-Region Replication (SRR)"
+      ],
+      "answer": 3,
+      "rationale": "**S3クロスリージョンレプリケーション (CRR)**は、オブジェクトを自動的かつ非同期的にターゲットリージョンのバケットに複製します。"
+    },
+    {
+      "question": "EC2インスタンスが起動に失敗した際や、ステータスチェックに失敗した際に、自動的にインスタンスを再起動したいです。どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Auto Scaling",
+        "Amazon CloudWatchアラーム",
+        "AWS Systems Manager Run Command",
+        "AWS Health"
+      ],
+      "answer": 2,
+      "rationale": "**Amazon CloudWatchアラーム**で、インスタンスステータスチェックやシステムステータスチェックの失敗を監視し、リカバリアクションを自動的に実行できます。"
+    },
+    {
+      "question": "VPC内に、IPv6アドレスを持つEC2インスタンスがあります。このインスタンスがインターネットにアウトバウンド接続できる必要がありますが、インバウンド接続はブロックしたいです。適切なサービスは？",
+      "options": [
+        "NAT Gateway",
+        "インターネットゲートウェイ (IGW)",
+        "Egress-Only Internet Gateway",
+        "VPCエンドポイント"
+      ],
+      "answer": 3,
+      "rationale": "**Egress-Only Internet Gateway**は、IPv6トラフィックに対して、プライベートサブネット内のインスタンスからのアウトバウンド接続を許可し、インターネットからのインバウンド接続をブロックします。"
+    },
+    {
+      "question": "アプリケーションのトラフィックが急増し、既存のEC2インスタンスでは処理しきれなくなっています。最も早く容量を追加できるEC2の購入オプションは？",
+      "options": [
+        "リザーブドインスタンス",
+        "オンデマンドインスタンス",
+        "スポットインスタンス",
+        "Savings Plans"
+      ],
+      "answer": 2,
+      "rationale": "**オンデマンドインスタンス**は、必要なときにすぐに起動でき、容量の制約を受けにくいため、急な需要に対応する最も迅速な方法です。"
+    },
+    {
+      "question": "企業がRDSデータベースのスナップショットをS3に保存しています。S3に保存されているスナップショットを復号化・管理するためにどのサービスを使用すべきですか？",
+      "options": [
+        "Amazon S3 Transfer Acceleration",
+        "AWS Key Management Service (KMS)",
+        "AWS Secrets Manager",
+        "AWS Certificate Manager (ACM)"
+      ],
+      "answer": 2,
+      "rationale": "データの暗号化と復号化に使用されるキーを管理するために、**AWS Key Management Service (KMS)**を使用します。"
+    },
+    {
+      "question": "企業が、S3バケットのデータが誤って削除されることを防ぎたいです。削除が発生した場合でも、以前のバージョンのオブジェクトを復元できるようにしたいです。どのS3機能を使用すべきですか？",
+      "options": [
+        "S3ライフサイクルポリシー",
+        "S3バージョン管理",
+        "S3オブジェクトロック",
+        "S3イベント通知"
+      ],
+      "answer": 2,
+      "rationale": "**S3バージョン管理**を有効にすると、同じキーのオブジェクトを上書きまたは削除しても、以前のバージョンが保持され、復元が可能になります。"
+    },
+    {
+      "question": "AWSアカウントのセキュリティを強化するため、ルートユーザーのアクセスキーを作成しないことが推奨されています。代わりに、管理者権限を持つユーザーを作成するには、どのサービスを使用すべきですか？",
+      "options": [
+        "AWS Systems Manager",
+        "AWS IAM",
+        "AWS STS",
+        "AWS Organizations"
+      ],
+      "answer": 2,
+      "rationale": "**AWS IAM**を使用して、ルートユーザーとは別に管理者権限を持つIAMユーザーを作成し、日々の運用に使用することが推奨されます。"
+    }
+  ]
+}
