@@ -9,7 +9,7 @@
 1. サーバー起動します。
 
 ```bash
-python3 -m http_server
+python3 -m http.server
 ```
 
 2. ブラウザから以下のサーバーにアクセスします。
